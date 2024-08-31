@@ -2,45 +2,22 @@
 layout: layouts/base.njk
 ---
 
-<h1 class="text-base leading-tight mb-4">CSS Triggers</h1>
-
-<script> console.log('hiii', {{ data | dump | safe }})</script>
-
-{% for property, value in data.properties %}
-<section class="mb-8">
-	<h2 class="text-lg leading-tight mb-4">{{ property }}</h2>
-
-	<h3>Initial</h3>
-	{% for engine, engineValues in value.initial %}
+{# {% include 'content.njk' %} #}
+<div class='grid'>
 	<div>
-		{{engine}}:
-		<ul>
-			{% for step, engineValue in engineValues %}
-				<li>{{step}}: {{engineValue}}</li>
-			{% endfor %}
-		</ul>
+		{% include 'verticle-title-reveal.njk' %}
 	</div>
-	{% endfor %}
 
-	<h3>Change</h3>
-	{% for engine, engineValues in value.change %}
 	<div>
-		{{engine}}:
-		<ul>
-			{% for step, engineValue in engineValues %}
-				<li>{{step}}: {{engineValue}}</li>
-			{% endfor %}
-		</ul>
+		{% include 'inverted-border.njk' %}
+		{% include 'slot-machine.njk' %}
 	</div>
-	{% endfor %}
+</div>
 
-	<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-		{% for trigger in property.triggers %}
-		<div class="p-4 border border-gray-200 rounded">
-			<h3 class="text-base leading-tight mb-2">{{ trigger.name }}</h3>
-			<p class="text-sm text-gray-600">{{ trigger.description }}</p>
-		</div>
-		{% endfor %}
-	</div>
-</section>
-{% endfor %}
+<style>
+	.grid {
+		display: grid;
+		grid-template-columns: 1fr 3fr;
+		gap: 32px;
+	}
+</style>

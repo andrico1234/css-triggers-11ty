@@ -1,0 +1,75 @@
+<div class="inverted-border-wrapper">
+	<div class="inverted-border-title one">
+		<h1>
+			CSS
+			<br >And GSAP
+		</h1>
+
+	</div>
+	<div class="inverted-border-container">
+
+	</div>
+	<div class="inverted-border-title two">
+		<h1>
+			CSS
+			<br >And GSAP
+		</h1>
+	</div>
+</div>
+
+<style>
+	.inverted-border-wrapper {
+		position: relative;
+		width: 100%;
+		padding: 32px;
+	}
+
+	.inverted-border-container {
+		background-color: var(--background-color);
+		border: 24px solid var(--color-gray-20);
+		height: 100%;
+		transform: translate(0px, 0px);
+		transition: transform 0.4s;
+		width: min(100%, 600px);
+		aspect-ratio: 1/1;
+	}
+
+	.inverted-border-wrapper:hover > .inverted-border-container {
+		transition: transform 0.1s;
+	}
+
+	.inverted-border-title {
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 100%;
+		height: 100%;
+		display: flex;
+		justify-content: flex-start;
+		align-items: center;
+		font-size: clamp(20px, 20vw, 90px);
+		color: var(--color-gray-20);
+		transition: transform 0.4s;
+		transform: scale(1);
+	}
+
+	.inverted-border-wrapper:has(.inverted-border-title.two:hover) .inverted-border-title.one {
+		transform: scale(0.92);
+	}
+
+	.inverted-border-title.two {
+		transform: scale(1.01);
+		mix-blend-mode: difference;
+	}
+
+	.inverted-border-title.two:hover {
+		transform: scale(1.1);
+	}
+
+	.inverted-border-title h1 {
+		margin: 0;
+	}
+</style>
+
+
+<script type="module" src="js/pan.js"></script>

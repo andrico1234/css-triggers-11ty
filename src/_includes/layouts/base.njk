@@ -23,15 +23,27 @@
 		<style>{% getBundle "css" %}</style>
 		{#- Renders the CSS bundle using a separate file, if you can't set CSP directive style-src: 'unsafe-inline' #}
 		{#- <link rel="stylesheet" href="{% getBundleFileUrl "css" %}"> #}
+		   <script type="importmap">
+  {
+    "imports": {
+      "gsap": "https://ga.jspm.io/npm:gsap@3.12.5/dist/gsap.js"
+    }
+  }
+  </script>
+
+  <!-- ES Module Shims import maps polyfills -->
+  <script async src="https://ga.jspm.io/npm:es-module-shims@1.10.0/dist/es-module-shims.js" crossorigin="anonymous"></script>
+
 	</head>
 	<body>
+		<!--
+    JSPM Generator Import Map
+    Edit URL: https://generator.jspm.io/#U2NgYGBkDM0rySzJSU1hSC9OLHAw1jM00jMFAB/6aoUaAA
+  -->
+
 		<a href="#skip" class="visually-hidden">Skip to main content</a>
 
-		<header>
-			{{ metadata.title }}
-		</header>
-
-		<main id="skip">
+		<main>
 			{{ content | safe }}
 		</main>
 

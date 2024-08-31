@@ -1,0 +1,144 @@
+<template id="reveal-wrapper-template">
+	<div class="reveal-wrapper">
+		<div class="text">
+			<p></p>
+			<p></p>
+			<p></p>
+			<p></p>
+			<p></p>
+			<p></p>
+			<p></p>
+			<p></p>
+			<p></p>
+		</div>
+		<div class="upper"></div>
+		<div class="lower"></div>
+	</div>
+</template>
+
+<div class="container"></div>
+
+<button data-animation-trigger>Trigger Animation</button>
+
+<style>
+	.reveal-wrapper {
+		position: fixed;
+		inset: 0;
+		left: 64px;
+		width: fit-content;
+		display: flex;
+		animation: content-reveal 1s forwards;
+	}
+
+	@keyframes content-reveal {
+		0% {
+			transform: scale(4);
+		}
+		100% {
+			transform: scale(1);
+		}
+	}
+
+	.reveal-wrapper .text {
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		font-size: clamp(32px, 10vw, 56px);
+		font-weight: bold;
+	}
+
+	.upper {
+		background-color: var(--background-color);
+		width: 100%;
+		height: 50%;
+		position: absolute;
+		top: 0;
+	}
+
+	.upper-reveal {
+		animation: upper-reveal 1.4s forwards ease-in;
+	}
+
+	.lower-reveal {
+		animation: lower-reveal 1.4s forwards ease-in;
+	}
+
+	.lower {
+		background-color: var(--background-color);
+		width: 100%;
+		height: 50%;
+		position: absolute;
+		bottom: 0;
+	}
+
+	.reveal-wrapper p {
+		font-family: var(--font-family-display);
+	}
+
+	@keyframes upper-reveal {
+		0% {
+			transform: translateY(0);
+		}
+		100% {
+			transform: translateY(-100%);
+		}
+	}
+
+	@keyframes lower-reveal {
+		0% {
+			transform: translateY(0);
+		}
+		100% {
+			transform: translateY(100%);
+		}
+	}
+</style>
+
+<script type="module">
+	const template = document.getElementById('reveal-wrapper-template');
+	const container = document.querySelector('.container');
+	const animationTrigger = document.querySelector('[data-animation-trigger]');
+
+	const vals = ['#0e1111', '#cc000d', '#5900cc']
+
+	function cycleBackgrounds() {
+		const bodyStyles = window.getComputedStyle(document.documentElement);
+		const backgroundValue = bodyStyles.getPropertyValue('--background-color');
+
+		const pos = vals.indexOf(backgroundValue);
+
+		if (pos === -1 ) {
+			document.documentElement.style.setProperty('--background-color', vals[0]);
+		} else {
+			document.documentElement.style.setProperty('--background-color', vals[(pos + 1) % vals.length]);
+		}
+	}
+
+
+	function triggerAnimation() {
+
+		if (container.children.length) {
+			container.innerHTML = '';
+		}
+
+		const templateClone = template.content.cloneNode(true);
+		const upperEl = templateClone.querySelector('.upper');
+		const lowerEl = templateClone.querySelector('.lower');
+
+		const pEls = templateClone.querySelectorAll('p');
+		pEls.forEach((pEl) => {
+			pEl.textContent = 'Bleach'
+		});
+
+		container.appendChild(templateClone);
+
+		upperEl.classList.add('upper-reveal');
+		lowerEl.classList.add('lower-reveal');
+
+		cycleBackgrounds();
+	}
+
+	animationTrigger.addEventListener('click', triggerAnimation);
+
+	triggerAnimation();
+</script>
