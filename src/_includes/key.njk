@@ -1,0 +1,80 @@
+<div class="key-grid">
+	<div class="stack">
+		<div class="key-item">
+			<div class="key-grid-layout key-grid-square"></div>
+			<p>
+				Layout
+			</p>
+		</div>
+		<div class="key-item">
+			<div class="key-grid-paint key-grid-square"></div>
+			<p>
+				Paint
+			</p>
+		</div>
+		<div class="key-item">
+			<div class="key-grid-composite key-grid-square"></div>
+			<p>Composite</p>
+		</div>
+	</div>
+	<div>
+		<div class="key-item">
+			<p class="key-engine">
+				B
+			</p>
+			<p>
+				Blink (Chromium)
+			</p>
+		</div>
+		<div class="key-item">
+			<p class="key-engine">G</p>
+			<p>Gecko (Firefox)</p>
+		</div>
+		<div class="key-item">
+			<p class="key-engine">W</p>
+			<p>Webkit (Safari)</p>
+		</div>
+	</div>
+</div>
+
+<style>
+	.key-grid {
+		display: grid;
+		grid-template-columns: 1fr 3fr;
+		gap: 32px;
+		align-items: center;
+		justify-content: flex-start;
+		padding-block: 64px;
+	}
+
+	.key-grid-square {
+		width: 32px;
+		aspect-ratio: 1/1;
+		border: 2px solid white;
+		background: var(--square-bg);
+	}
+
+	.key-item {
+		display: flex;
+		gap: 8px;
+		align-items: center;
+	}
+
+	.key-item:nth-child(1) {
+		--square-bg: var(--red);
+	}
+
+	.key-item:nth-child(2) {
+		--square-bg: var(--purple);
+	}
+
+	.key-item:nth-child(3) {
+		--square-bg: var(--blue);
+	}
+
+	p.key-engine {
+		font-size: 1.9rem;
+		font-weight: bold;
+		font-family: var(--font-family-display);
+	}
+</style>

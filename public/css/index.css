@@ -31,6 +31,7 @@
 	--black: #0e1111;
 	--red:  #cc000d;
 	--purple: #5900cc;
+	--blue: #242bff;
 
 	--background-color: var(--black);
 
@@ -38,6 +39,8 @@
 	--text-color-link: #1493fb;
 	--text-color-link-active: #6969f7;
 	--text-color-link-visited: #a6a6f8;
+
+	--stack-gap: 16px;
 }
 
 /* Global stylesheet */
@@ -52,18 +55,25 @@ body {
 	font-family: var(--font-family);
 	color: var(--text-color);
 	background-color: var(--background-color);
+	transition: background-color 0.2s;
 }
 
 html {
 	overflow-y: scroll;
 }
 
-body {
-	/* max-width: 100ch; */
-}
-
 h1, h2, h3 {
 	font-family: var(--font-family-display);
+}
+
+h2 {
+	letter-spacing: 2px;
+}
+
+.stack {
+	display: flex;
+	flex-direction: column;
+	gap: var(--stack-gap);
 }
 
 /* https://www.a11yproject.com/posts/how-to-hide-content/ */
@@ -86,6 +96,11 @@ p {
 	margin: 0;
 }
 
+
+.main-content p {
+	font-size: 1.2rem;
+}
+
 li {
 	line-height: 1.5;
 }
@@ -103,9 +118,6 @@ a[href]:active {
 	color: var(--text-color-link-active);
 }
 
-main {
-	padding: 1rem;
-}
 
 main :first-child {
 	margin-top: 0;
@@ -307,3 +319,4 @@ a[href].header-anchor:focus,
 h2+.header-anchor {
 	font-size: 1.5em;
 }
+

@@ -1,6 +1,9 @@
 const pluginBundle = require("@11ty/eleventy-plugin-bundle");
 const { EleventyHtmlBasePlugin } = require("@11ty/eleventy");
 
+const vals = ['layout', 'paint', 'composite'];
+const engines = ['blink', 'gecko', 'webkit'];
+
 /** @param {import('@11ty/eleventy').UserConfig} eleventyConfig */
 module.exports = function (eleventyConfig) {
 	// Copy the contents of the `public` folder to the output folder
@@ -15,6 +18,26 @@ module.exports = function (eleventyConfig) {
 	// Official plugins
 	eleventyConfig.addPlugin(EleventyHtmlBasePlugin);
 	eleventyConfig.addPlugin(pluginBundle);
+
+	eleventyConfig.addFilter('sortStep', function(unordered) {
+		const ordered = Object.keys(unordered).sort((a, b) => {
+			const aIndex = vals.indexOf(a);
+			const bIndex = vals.indexOf(b);
+			return aIndex - bIndex;
+		}).reduce(
+			(obj, key) => {
+				obj[key] = unordered[key];
+				return obj;
+			},
+			{}
+		);
+
+		return ordered
+	})
+
+	eleventyConfig.addFilter('getEngine', function(i) {
+		return engines[i];
+	})
 
 	// Features to make your build faster (when you need them)
 

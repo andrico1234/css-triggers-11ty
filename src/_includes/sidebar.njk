@@ -1,0 +1,62 @@
+<template id="reveal-wrapper-template">
+	<div class="reveal-wrapper">
+		<div class="text">
+			<p></p>
+			<p></p>
+			<p></p>
+			<p></p>
+			<p></p>
+			<p></p>
+			<p></p>
+			<p></p>
+		</div>
+	</div>
+</template>
+
+<div class="container"></div>
+
+<style>
+	.reveal-wrapper {
+		position: fixed;
+		inset: 0;
+		width: fit-content;
+		display: flex;
+		animation: content-reveal 1s forwards;
+		width: 250px;
+		white-space: nowrap;
+		font-size: clamp(32px, 10vw, 56px);
+	}
+
+	.reveal-wrapper .text {
+		display: flex;
+		flex-direction: column;
+		justify-content: space-around;
+		font-weight: bold;
+	}
+
+	.reveal-wrapper p {
+		font-family: var(--font-family-display);
+	}
+
+	.something-2 {
+		animation: content-exit 1s forwards;
+	}
+
+	@keyframes content-reveal {
+		0% {
+			transform: translateY(100%);
+		}
+		100% {
+			transform: translateY(0%);
+		}
+	}
+
+	@keyframes content-exit {
+		0% {
+			transform: translateY(0);
+		}
+		100% {
+			transform: translateY(-100%);
+		}
+	}
+</style>

@@ -1,38 +1,262 @@
 {% for property, value in data.properties %}
-<section class="mb-8">
-	<h2 class="text-lg leading-tight mb-4">{{ property }}</h2>
-
-	<h3>Initial</h3>
-	{% for engine, engineValues in value.initial %}
+<section>
 	<div>
-		{{engine}}:
-		<ul>
-			{% for step, engineValue in engineValues %}
-				<li>{{step}}: {{engineValue}}</li>
-			{% endfor %}
-		</ul>
-	</div>
-	{% endfor %}
+		<h2 class="content-title">{{ property }}</h2>
+			<div class="content-grid">
+				<div class="column">
+					<h3 class="subtitle">Initial render</h3>
+					<div class="row">
+						{% for i in range(3) %}
+							<div class="button-wrapper column">
+								{% set engine = i | getEngine %}
+								<p class="engine">{{engine | truncate(1, true, '') | capitalize}}</p>
+								<button data-engine-name={{ engine }} data-property-name={{ property }} class="content-list">
+									{% set engineValues = value.initial[engine] %}
+									<div data-step="layout" class="square layout is-valid-{{engineValues.layout}}"></div>
+									<div data-step="paint" class="square paint is-valid-{{engineValues.paint}}"></div>
+									<div data-step="composite" class="square composite is-valid-{{engineValues.composite}}"></div>
+								</button>
+							</div>
+						{% endfor %}
+					</div>
+				</div>
 
-	<h3>Change</h3>
-	{% for engine, engineValues in value.change %}
-	<div>
-		{{engine}}:
-		<ul>
-			{% for step, engineValue in engineValues %}
-				<li>{{step}}: {{engineValue}}</li>
-			{% endfor %}
-		</ul>
-	</div>
-	{% endfor %}
+				<div class="column">
+					<h3 class="subtitle">Subsequent updates</h3>
+					<div class="row">
+						{% for i in range(3) %}
+							<div class="column button-wrapper">
+								{% set engine = i | getEngine %}
+								<p class="engine">{{engine | truncate(1, true, '') | capitalize}}</p>
+								<button data-engine-name={{ engine }} data-property-name={{ property }} class="content-list">
+									{% set engineValues = value.change[engine] %}
+									<div data-step="layout" class="square layout is-valid-{{engineValues.layout}}"></div>
+									<div data-step="paint" class="square paint is-valid-{{engineValues.paint}}"></div>
+									<div data-step="composite" class="square composite is-valid-{{engineValues.composite}}"></div>
+								</button>
+							</div>
+						{% endfor %}
+					</div>
 
-	<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-		{% for trigger in property.triggers %}
-		<div class="p-4 border border-gray-200 rounded">
-			<h3 class="text-base leading-tight mb-2">{{ trigger.name }}</h3>
-			<p class="text-sm text-gray-600">{{ trigger.description }}</p>
+			</div>
 		</div>
-		{% endfor %}
+		<div data-property-name={{ property }} class="expander">
+			<div class="expander-content" data-content-container></div>
+		</div>
 	</div>
 </section>
 {% endfor %}
+
+<style>
+	section {
+		margin-bottom: 4rem;
+	}
+
+
+	.content-title {
+		align-self: center;
+	}
+
+	.row {
+		display: flex;
+		justify-content: space-between;
+		gap: 4px;
+	}
+
+	.content-grid {
+		display: grid;
+		grid-template-columns: 1fr 3fr;
+		gap: 32px;
+		align-items: end;
+	}
+
+	.column {
+		display: flex;
+		flex-direction: column;
+		align-items: start;
+	}
+
+	.subtitle {
+		margin-bottom: 0.6rem;
+		font-weight: 500;
+	}
+
+	.content-list .square {
+		width: 24px;
+		aspect-ratio: 1/1;
+		background: var(--square-bg);
+	}
+
+	.content-list {
+		cursor: pointer;
+		background-color: transparent;
+		border: none;
+		margin: 0;
+		padding: 0;
+		text-align: inherit;
+		font: inherit;
+		border-radius: 0;
+		position: relative;
+	}
+
+	.content-list::after {
+		content: '';
+		display: block;
+		position: absolute;
+		inset: 0;
+		background: var(--white);
+		opacity: 0;
+		transition: opacity 0.1s;
+	}
+
+	.content-list:hover::after {
+		opacity: 0.1;
+	}
+
+	.content-list:active::after {
+		opacity: 0.4;
+	}
+
+	.content-list.selected::after {
+		opacity: 1;
+	}
+
+	.content-list .square. {
+		width: 32px;
+		aspect-ratio: 1/1;
+		border: 2px solid white;
+		background: var(--square-bg);
+	}
+
+	.row .engine {
+		font-family: var(--font-family-display);
+		font-weight: bold;
+		margin-bottom: 0;
+		align-self: center;
+	}
+
+	.is-valid-false, .is-valid- {
+		opacity: 0.3;
+	}
+
+	.content-list {
+		list-style: none;
+		padding-left: 0;
+		margin: 0;
+		border: 2px solid var(--white);
+	}
+
+	.content-list .square.layout {
+		--square-bg: var(--red);
+	}
+
+	.content-list .square.paint {
+		--square-bg: var(--purple);
+	}
+
+	.content-list .square.composite {
+		--square-bg: var(--blue);
+	}
+
+	.expander {
+		display: grid;
+		grid-template-rows: 0fr;
+		overflow: hidden;
+		transition: height 1s, grid-template-rows 1s;
+	}
+
+	.expander-content {
+		min-height: 0;
+		transition: visibility 1s;
+		visibility: hidden;
+	}
+
+	.expander.expanded {
+		grid-template-rows: 1fr;
+	}
+
+	.expander.expanded .expander-content {
+		visibility: visible;
+	}
+
+	.expander-content > * {
+		padding-top: 1rem;
+	}
+</style>
+
+<script type="module">
+	import { cycleBackground, pushAnimationToQueue } from './js/setBackground.js'
+
+
+	function updateContent(engine, property, step) {
+		const prevExpanded = document.querySelector('.expanded');
+		const expander = document.querySelector(`[data-property-name="${property}"].expander`);
+
+		if (prevExpanded && prevExpanded !== expander) {
+			clearExistingContent();
+		}
+
+		const copyContainer = document.querySelector(`[data-property-name="${property}"] > [data-content-container]`);
+		const copyTemplate = document.getElementById(`${step}-copy`);
+		const clonedCopy = copyTemplate.content.cloneNode(true);
+
+		const engineEl = clonedCopy.querySelector('.engine');
+		engineEl.textContent = engine;
+
+		const propertyEl = clonedCopy.querySelector('.property');
+		propertyEl.textContent = property;
+
+		const currentHeight = expander.scrollHeight + 'px';
+		copyContainer.innerHTML = '';
+		copyContainer.appendChild(clonedCopy);
+
+		if (expander.classList.contains('expanded')) {
+			expander.style.height = 'auto';
+
+			const newHeight = expander.scrollHeight + 'px';
+			expander.style.height = currentHeight;
+
+			// Force a reflow to ensure the height is set before transitioning
+			expander.offsetHeight;
+			expander.style.height = newHeight;
+		} else {
+			expander.classList.add('expanded');
+		}
+	}
+
+	function clearExistingContent() {
+		const expander = document.querySelector('.expander.expanded');
+
+		expander.style.height = 'auto';
+		expander.classList.remove('expanded');
+	}
+
+	const buttonWrappers = document.querySelectorAll('.button-wrapper');
+	const buttons = document.querySelectorAll('.content-list');
+
+	buttonWrappers.forEach((buttonWrapper) => {
+		buttonWrapper.addEventListener('click', (event) => {
+			const button = event.target.closest('.content-list');
+			if (!button) return;
+
+			const prevSelected = button.classList.contains('selected');
+			buttons.forEach((b) => b.classList.remove('selected'));
+			button.classList.toggle('selected', !prevSelected);
+
+			const property = button.dataset.propertyName;
+			const children = Array.from(button.children);
+			const stepChild = children.find((el) => el.classList.contains('is-valid-true'));
+			const step = stepChild?.dataset.step ?? 'none';
+			const engine = button.dataset.engineName;
+			const selected = button.classList.contains('selected');
+
+			if (selected) {
+				pushAnimationToQueue({ propertyName: property, step });
+				updateContent(engine, property, step);
+			} else {
+				pushAnimationToQueue({propertyName: null, step: null});
+				clearExistingContent();
+			}
+		});
+	})
+</script>

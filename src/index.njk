@@ -2,22 +2,59 @@
 layout: layouts/base.njk
 ---
 
-{# {% include 'content.njk' %} #}
 <div class='grid'>
-	<div>
-		{% include 'verticle-title-reveal.njk' %}
+	<div class="sidebar">
+		{% include 'sidebar.njk' %}
 	</div>
 
-	<div>
+	<div class="main-content">
 		{% include 'inverted-border.njk' %}
-		{% include 'slot-machine.njk' %}
+		<div class="children-content">
+			<div class="stack">
+				<p>
+					This is a remake of the OG CSS Triggers, which no longer exists. The original site was created by Paul Lewis and Surma. This version is created by Andrico Karoulla
+				</p>
+				<p>
+					But I need your help! The data I’m using hasn’t been updated in several years. If you have access to the latest browser data, then open a GitHub issue
+				</p>
+			</div>
+			{% include 'key.njk' %}
+			{% include 'content.njk' %}
+		</div>
 	</div>
 </div>
 
 <style>
 	.grid {
 		display: grid;
-		grid-template-columns: 1fr 3fr;
+		grid-template-columns: 1fr;
 		gap: 32px;
+	}
+
+	.grid > div:last-child {
+		overflow: hidden;
+	}
+
+	.children-content {
+		max-width: 70ch;
+		margin-inline: auto;
+	}
+
+	.main-content {
+		padding: 16px;
+	}
+
+	.sidebar {
+		display: none;
+	}
+
+	@media (min-width: 700px) {
+		.grid {
+			grid-template-columns: 250px 1fr;
+		}
+
+		.sidebar {
+			display: block;
+		}
 	}
 </style>

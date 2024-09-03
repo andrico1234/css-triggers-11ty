@@ -6,16 +6,6 @@
 		<title>{{ title or metadata.title }}</title>
 		<meta name="description" content="{{ description or metadata.description }}">
 
-		{#-
-		CSS bundles are provided via the `eleventy-plugin-bundle` plugin:
-		1. You can add to them using `{% css %}`
-		2. You can get from them using `{% getBundle "css" %}` or `{% getBundleFileUrl "css" %}`
-		3. You can do the same for JS: {% js %}{% endjs %} and <script>{% getBundle "js" %}</script>
-		4. Learn more: https://github.com/11ty/eleventy-plugin-bundle
-		#}
-
-		{#- Add an arbitrary string to the bundle #}
-		{%- css %}* { box-sizing: border-box; }{% endcss %}
 		{#- Add the contents of a file to the bundle #}
 		{%- css %}{% include "public/css/index.css" %}{% endcss %}
 
@@ -23,30 +13,40 @@
 		<style>{% getBundle "css" %}</style>
 		{#- Renders the CSS bundle using a separate file, if you can't set CSP directive style-src: 'unsafe-inline' #}
 		{#- <link rel="stylesheet" href="{% getBundleFileUrl "css" %}"> #}
-		   <script type="importmap">
-  {
-    "imports": {
-      "gsap": "https://ga.jspm.io/npm:gsap@3.12.5/dist/gsap.js"
-    }
-  }
-  </script>
 
-  <!-- ES Module Shims import maps polyfills -->
-  <script async src="https://ga.jspm.io/npm:es-module-shims@1.10.0/dist/es-module-shims.js" crossorigin="anonymous"></script>
+		<script type="importmap">
+			{
+				"imports": {
+					"gsap": "https://ga.jspm.io/npm:gsap@3.12.5/dist/gsap.js"
+				}
+			}
+		</script>
 
+		<!-- ES Module Shims import maps polyfills -->
+		<script async src="https://ga.jspm.io/npm:es-module-shims@1.10.0/dist/es-module-shims.js" crossorigin="anonymous"></script>
 	</head>
 	<body>
-		<!--
-    JSPM Generator Import Map
-    Edit URL: https://generator.jspm.io/#U2NgYGBkDM0rySzJSU1hSC9OLHAw1jM00jMFAB/6aoUaAA
-  -->
+		<template id="layout-copy">
+			<p>Changing <span class="property"></span> in <span class="engine"></span> alters the geometry of the element. That means that it may affect the position or size of other elements on the page, both of which require the browser to perform layout operations.</p>
+			<p>Once those layout operations have completed any damaged pixels will need to be painted and the page must then be composited together.</p>
+		</template>
 
-		<a href="#skip" class="visually-hidden">Skip to main content</a>
+		<template id="paint-copy">
+			<p>Changing <span class="property"></span> in <span class="engine"></span> does not trigger any geometry changes, which is good. But since it is a visual property, it will cause painting to occur. Painting is typically a super expensive operation, so you should be cautious.</p>
+			<p>Once any pixels have been painted the page will be composited together.</p>
+		</template>
+
+		<template id="composite-copy">
+			<p>Changing <span class="property"></span> in <span class="engine"></span> property does not trigger any geometry changes or painting, which is very good. This means that the operation can likely be carried out by the compositor thread with the help of the GPU.</p>
+		</template>
+
+		<template id="none-copy">
+			<p>There's no data to determine the stage of the pipeline that changing <span class="property"></span> in <span class="engine"></span> triggers.
+			<p>If you have up to date data for this property, then please open an issue in GitHub</p>
+		</template>
 
 		<main>
 			{{ content | safe }}
 		</main>
-
-		<footer></footer>
 	</body>
 </html>
