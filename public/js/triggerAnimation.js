@@ -1,4 +1,5 @@
 import { removeTitle, addTitle } from "./animateSidebar.js";
+import { cycleBackground } from './setBackground.js'
 
 class Queue {
 	constructor() {
@@ -26,6 +27,7 @@ const buffer = new Queue();
 
 export function triggerAnimation({ propertyName, step }) {
 	return new Promise((resolve) => {
+		cycleBackground(step)
 		if (!propertyName) {
 			return removeTitle(() => {
 				resolve();
@@ -56,7 +58,8 @@ function handleQueueChange(event) {
 
 		if (buffer.buffer.length > 0) {
 			const lastItem = buffer.buffer[buffer.buffer.length - 1];
-			buffer.clear();
+			// TODO: Make this less hacky
+			buffer.buffer = [lastItem];
 			handleQueueChange({ detail: lastItem });
 		}
 	});

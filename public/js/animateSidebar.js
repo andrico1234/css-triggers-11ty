@@ -1,5 +1,6 @@
-import { resizeTextToFit } from "./resizeTextToFit";
+import { resizeTextToFit } from "./resizeTextToFit.js";
 
+const time = 1_000;
 const container = document.querySelector(".container");
 const template = document.getElementById("reveal-wrapper-template");
 
@@ -14,7 +15,7 @@ export function removeTitle(onComplete) {
 	setTimeout(() => {
 		previousTemplate.remove();
 		onComplete();
-	}, 1000);
+	}, time);
 }
 
 export function addTitle({ propertyName }, onComplete) {
@@ -43,7 +44,7 @@ export function addTitle({ propertyName }, onComplete) {
 
 		setTimeout(() => {
 			previousTemplate.remove();
-		}, 1000);
+		}, time);
 	}
 
 	const lastChild = container.children[container.children.length - 1];
@@ -53,5 +54,5 @@ export function addTitle({ propertyName }, onComplete) {
 
 	setTimeout(() => {
 		onComplete();
-	}, 1000);
+	}, time);
 }

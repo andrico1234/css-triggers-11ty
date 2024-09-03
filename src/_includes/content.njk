@@ -84,7 +84,7 @@
 	.content-list .square {
 		width: 24px;
 		aspect-ratio: 1/1;
-		background: var(--square-bg);
+		background: var(--square-bg, var(--black));
 	}
 
 	.content-list {
@@ -121,22 +121,11 @@
 		opacity: 1;
 	}
 
-	.content-list .square. {
-		width: 32px;
-		aspect-ratio: 1/1;
-		border: 2px solid white;
-		background: var(--square-bg);
-	}
-
 	.row .engine {
 		font-family: var(--font-family-display);
 		font-weight: bold;
 		margin-bottom: 0;
 		align-self: center;
-	}
-
-	.is-valid-false, .is-valid- {
-		opacity: 0.3;
 	}
 
 	.content-list {
@@ -146,15 +135,15 @@
 		border: 2px solid var(--white);
 	}
 
-	.content-list .square.layout {
+	.content-list .square.layout.is-valid-true {
 		--square-bg: var(--red);
 	}
 
-	.content-list .square.paint {
+	.content-list .square.paint.is-valid-true {
 		--square-bg: var(--purple);
 	}
 
-	.content-list .square.composite {
+	.content-list .square.composite.is-valid-true {
 		--square-bg: var(--blue);
 	}
 
@@ -185,8 +174,7 @@
 </style>
 
 <script type="module">
-	import { cycleBackground, pushAnimationToQueue } from './js/setBackground.js'
-
+	import { pushAnimationToQueue } from './js/triggerAnimation.js'
 
 	function updateContent(engine, property, step) {
 		const prevExpanded = document.querySelector('.expanded');
