@@ -36,9 +36,12 @@
 	--background-color: var(--black);
 
 	--text-color: var(--color-gray-90);
-	--text-color-link: #1493fb;
-	--text-color-link-active: #6969f7;
-	--text-color-link-visited: #a6a6f8;
+	--text-color-link: var(--black);
+
+	--bezier-eioq: cubic-bezier(0.455, 0.030, 0.515, 0.955);
+	--bezier-eioc: cubic-bezier(0.545, 0.045, 0.455, 1.000);
+
+	--bezier: var(--bezier-eioc);
 
 	--stack-gap: 16px;
 }
@@ -54,7 +57,7 @@ body {
 	margin: 0 auto;
 	font-family: var(--font-family);
 	color: var(--text-color);
-	background-color: var(--background-color);
+	background-color: var(--black);
 	transition: background-color 0.2s;
 }
 
@@ -106,18 +109,9 @@ li {
 }
 
 a[href] {
-	color: var(--text-color-link);
+	color: var(--white);
+	mix-blend-mode: difference;
 }
-
-a[href]:visited {
-	color: var(--text-color-link-visited);
-}
-
-a[href]:hover,
-a[href]:active {
-	color: var(--text-color-link-active);
-}
-
 
 main :first-child {
 	margin-top: 0;

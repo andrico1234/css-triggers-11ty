@@ -1,5 +1,4 @@
 import { removeTitle, addTitle } from "./animateSidebar.js";
-import { cycleBackground } from './setBackground.js'
 
 class Queue {
 	constructor() {
@@ -27,7 +26,6 @@ const buffer = new Queue();
 
 export function triggerAnimation({ propertyName, step }) {
 	return new Promise((resolve) => {
-		cycleBackground(step)
 		if (!propertyName) {
 			return removeTitle(() => {
 				resolve();

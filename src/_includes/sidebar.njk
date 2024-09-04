@@ -1,14 +1,17 @@
 <template id="reveal-wrapper-template">
-	<div class="reveal-wrapper">
-		<div class="text">
-			<p></p>
-			<p></p>
-			<p></p>
-			<p></p>
-			<p></p>
-			<p></p>
-			<p></p>
-			<p></p>
+	<div>
+	<div class="reveal-wrapper-background"></div>
+		<div class="reveal-wrapper">
+			<div class="text">
+				<p></p>
+				<p></p>
+				<p></p>
+				<p></p>
+				<p></p>
+				<p></p>
+				<p></p>
+				<p></p>
+			</div>
 		</div>
 	</div>
 </template>
@@ -21,10 +24,18 @@
 		inset: 0;
 		width: fit-content;
 		display: flex;
-		animation: content-reveal 1s forwards;
-		width: 250px;
+		animation: content-reveal 1s forwards var(--bezier);
+		width: clamp(250px, 30vw, 500px);
 		white-space: nowrap;
 		font-size: clamp(32px, 10vw, 56px);
+	}
+
+	.reveal-wrapper-background {
+		position: fixed;
+		width: 100%;
+		inset: 0;
+		background: var(--background-color);
+		animation: content-reveal 1s forwards var(--bezier);
 	}
 
 	.reveal-wrapper .text {
@@ -39,7 +50,7 @@
 	}
 
 	.something-2 {
-		animation: content-exit 1s forwards;
+		animation: content-exit 1s forwards var(--bezier) ;
 	}
 
 	@keyframes content-reveal {
