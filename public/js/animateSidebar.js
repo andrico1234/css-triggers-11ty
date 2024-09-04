@@ -29,6 +29,8 @@ export function addTitle({ propertyName, step }, onComplete) {
 		const currentText =
 			container.children[0].querySelector(".text p").textContent;
 		if (currentText === propertyName) {
+			const bgEl = container.children[0].querySelector(".reveal-wrapper-background");
+			cycleBackground(bgEl, step)
 			onComplete();
 			return;
 		}
