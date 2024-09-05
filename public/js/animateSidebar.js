@@ -1,4 +1,4 @@
-import { resizeTextToFit } from "./resizeTextToFit.js";
+import { resizeHandler, resizeTextToFit } from "./resizeTextToFit.js";
 import { cycleBackground } from "./setBackground.js";
 
 const time = 1_000;
@@ -6,6 +6,9 @@ const container = document.querySelector(".container");
 const template = document.getElementById("reveal-wrapper-template");
 
 export function removeTitle(onComplete) {
+	if (window.innerWidth < 700) {
+		cycleBackground("none");
+	}
 	// I need to have the same setup, container + children
 	if (!container.children.length) {
 		return onComplete();
@@ -15,8 +18,8 @@ export function removeTitle(onComplete) {
 
 	const wrapper = previousTemplate.querySelector(".reveal-wrapper");
 	const wrapperBg = previousTemplate.querySelector(".reveal-wrapper-background");
-	wrapper.classList.add("something-2");
-	wrapperBg.classList.add("something-2");
+	wrapper.classList.add("content-exit-animation");
+	wrapperBg.classList.add("content-exit-animation");
 
 	setTimeout(() => {
 		previousTemplate.remove();
@@ -25,12 +28,17 @@ export function removeTitle(onComplete) {
 }
 
 export function addTitle({ propertyName, step }, onComplete) {
+	if (window.innerWidth < 700) {
+		cycleBackground(step)
+		onComplete();
+		return
+	}
+
 	if (container.children.length > 0) {
 		const currentText =
 			container.children[0].querySelector(".text p").textContent;
 		if (currentText === propertyName) {
-			const bgEl = container.children[0].querySelector(".reveal-wrapper-background");
-			cycleBackground(bgEl, step)
+			cycleBackground(step)
 			onComplete();
 			return;
 		}
@@ -39,13 +47,12 @@ export function addTitle({ propertyName, step }, onComplete) {
 	const templateClone = template.content.cloneNode(true);
 
 	const pEls = templateClone.querySelectorAll("p");
-	const bgEl = templateClone.querySelector(".reveal-wrapper-background");
 
 	for (const pEl of pEls) {
 		pEl.textContent = propertyName;
 	}
 
-	cycleBackground(bgEl, step)
+	cycleBackground(step)
 
 	container.appendChild(templateClone);
 
@@ -54,18 +61,15 @@ export function addTitle({ propertyName, step }, onComplete) {
 
 		const wrapper = previousTemplate.querySelector(".reveal-wrapper");
 		const wrapperBg = previousTemplate.querySelector(".reveal-wrapper-background");
-		wrapper.classList.add("something-2");
-		wrapperBg.classList.add("something-2");
+		wrapper.classList.add("content-exit-animation");
+		wrapperBg.classList.add("content-exit-animation");
 
 		setTimeout(() => {
 			previousTemplate.remove();
 		}, time);
 	}
 
-	const lastChild = container.children[container.children.length - 1];
-	const textEl = lastChild.querySelector(".text");
-
-	resizeTextToFit(lastChild, textEl);
+	resizeHandler();
 
 	setTimeout(() => {
 		onComplete();

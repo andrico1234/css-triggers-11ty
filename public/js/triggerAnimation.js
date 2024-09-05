@@ -1,4 +1,5 @@
 import { removeTitle, addTitle } from "./animateSidebar.js";
+import { cycleBackground } from "./setBackground.js";
 
 class Queue {
 	constructor() {

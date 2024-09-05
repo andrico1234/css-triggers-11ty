@@ -1,5 +1,6 @@
 @font-face {
 	font-family: 'ClashDisplay';
+	font-display: fallback;
 	src: url('fonts/ClashDisplay-Variable.woff2') format('woff2');
 	font-weight: 100 900;
 	font-stretch: 75% 125%;

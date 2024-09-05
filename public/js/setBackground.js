@@ -7,8 +7,15 @@ const stepToColorsMap = {
 	composite: "#242bff",
 };
 
-export function cycleBackground(el, step) {
+export function cycleBackground(step) {
 	const color = stepToColorsMap[step] ?? stepToColorsMap.none;
-	el.style.setProperty("--background-color", color);
+
+	document.body.style.setProperty("--background-color", color);
+
+	if (window.innerWidth < 700) {
+		document.body.style.backgroundColor = 'var(--background-color)';
+	} else {
+		document.body.style.backgroundColor = 'var(--black)';
+	}
 }
 

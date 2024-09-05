@@ -1,9 +1,12 @@
 const container = document.querySelector(".container");
 
+const MAX_FONT_SIZE = 110
+
 export function resizeTextToFit(wrapperEl, textEl) {
 	let fontSize = 0;
 	wrapperEl.style.fontSize = `${fontSize}px`;
-	while (textEl.clientWidth <= wrapperEl.clientWidth && fontSize < 200) {
+
+	while (textEl.clientWidth <= wrapperEl.clientWidth && fontSize < MAX_FONT_SIZE) {
 		fontSize += 1;
 		wrapperEl.style.fontSize = `${fontSize}px`;
 	}
@@ -11,7 +14,7 @@ export function resizeTextToFit(wrapperEl, textEl) {
 	wrapperEl.style.fontSize = `${fontSize - 2}px`;
 }
 
-function resizeHandler() {
+export function resizeHandler() {
 	const lastChild = container.children[container.children.length - 1];
 
 	if (!lastChild) return

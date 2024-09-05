@@ -40,9 +40,7 @@
 
 			</div>
 		</div>
-		<div data-property-name={{ property }} class="expander">
-			<div class="expander-content" data-content-container></div>
-		</div>
+		{% include 'accordion.njk' %}
 	</div>
 </section>
 {% endfor %}
@@ -60,7 +58,7 @@
 	.row {
 		display: flex;
 		justify-content: space-between;
-		gap: 4px;
+		gap: 12px;
 	}
 
 	.content-grid {
@@ -128,6 +126,15 @@
 		align-self: center;
 	}
 
+	.expander-content .property {
+		font-family: monospace;
+	}
+
+	.expander-content .engine {
+		text-transform: capitalize;
+	}
+
+
 	.content-list {
 		list-style: none;
 		padding-left: 0;
@@ -146,78 +153,11 @@
 	.content-list .square.composite.is-valid-true {
 		--square-bg: var(--blue);
 	}
-
-	.expander {
-		display: grid;
-		grid-template-rows: 0fr;
-		overflow: hidden;
-		transition: height 1s, grid-template-rows 1s;
-	}
-
-	.expander-content {
-		min-height: 0;
-		transition: visibility 1s;
-		visibility: hidden;
-	}
-
-	.expander.expanded {
-		grid-template-rows: 1fr;
-	}
-
-	.expander.expanded .expander-content {
-		visibility: visible;
-	}
-
-	.expander-content > * {
-		padding-top: 1rem;
-	}
 </style>
 
 <script type="module">
 	import { pushAnimationToQueue } from './js/triggerAnimation.js'
-
-	function updateContent(engine, property, step) {
-		const prevExpanded = document.querySelector('.expanded');
-		const expander = document.querySelector(`[data-property-name="${property}"].expander`);
-
-		if (prevExpanded && prevExpanded !== expander) {
-			clearExistingContent();
-		}
-
-		const copyContainer = document.querySelector(`[data-property-name="${property}"] > [data-content-container]`);
-		const copyTemplate = document.getElementById(`${step}-copy`);
-		const clonedCopy = copyTemplate.content.cloneNode(true);
-
-		const engineEl = clonedCopy.querySelector('.engine');
-		engineEl.textContent = engine;
-
-		const propertyEl = clonedCopy.querySelector('.property');
-		propertyEl.textContent = property;
-
-		const currentHeight = expander.scrollHeight + 'px';
-		copyContainer.innerHTML = '';
-		copyContainer.appendChild(clonedCopy);
-
-		if (expander.classList.contains('expanded')) {
-			expander.style.height = 'auto';
-
-			const newHeight = expander.scrollHeight + 'px';
-			expander.style.height = currentHeight;
-
-			// Force a reflow to ensure the height is set before transitioning
-			expander.offsetHeight;
-			expander.style.height = newHeight;
-		} else {
-			expander.classList.add('expanded');
-		}
-	}
-
-	function clearExistingContent() {
-		const expander = document.querySelector('.expander.expanded');
-
-		expander.style.height = 'auto';
-		expander.classList.remove('expanded');
-	}
+	import { updateContent, clearExistingContent } from './js/updateContent.js'
 
 	const buttonWrappers = document.querySelectorAll('.button-wrapper');
 	const buttons = document.querySelectorAll('.content-list');

@@ -22,12 +22,11 @@
 	.reveal-wrapper {
 		position: fixed;
 		inset: 0;
-		width: fit-content;
 		display: flex;
 		animation: content-reveal 1s forwards var(--bezier);
 		width: clamp(250px, 30vw, 500px);
 		white-space: nowrap;
-		font-size: clamp(32px, 10vw, 56px);
+		font-size: 16px;
 	}
 
 	.reveal-wrapper-background {
@@ -50,8 +49,8 @@
 		font-family: var(--font-family-display);
 	}
 
-	.something-2 {
-		animation: content-exit 1s forwards var(--bezier) ;
+	.content-exit-animation {
+		animation: content-exit 1s forwards var(--bezier);
 	}
 
 	@keyframes content-reveal {
