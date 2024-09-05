@@ -14,17 +14,6 @@
 	/* Latin Extended-B */
 }
 
-
-
-/*
-  6. Remove built-in form typography styles
-*/
-
-/*
-  8. Create a root stacking context
-*/
-
-
 /* Defaults */
 :root {
 	--font-family: -apple-system, system-ui, sans-serif;
@@ -83,14 +72,11 @@ body {
 	line-height: 1.5;
   -webkit-font-smoothing: antialiased;
 	transition: background-color 0.4s;
+	isolation: isolate;
 }
 
 html {
 	overflow-y: scroll;
-}
-
-#root, #__next {
-  isolation: isolate;
 }
 
 h1, h2, h3 {
@@ -104,9 +90,7 @@ h2 {
 input, button, textarea, select {
   font: inherit;
 }
-/*
-  7. Avoid text overflows
-*/
+
 p, h1, h2, h3, h4, h5, h6 {
   overflow-wrap: break-word;
 }
