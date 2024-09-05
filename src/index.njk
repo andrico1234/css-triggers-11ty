@@ -12,10 +12,10 @@ layout: layouts/base.njk
 		<div class="children-content">
 			<div class="stack">
 				<p>
-					This is a remake of the OG CSS Triggers, which no longer exists. The original was created by <a href="https://x.com/aerotwist">Paul Lewis</a> and <a href="https://x.com/DasSurma">Surma</a>. This version is created by Andrico Karoulla
+					This is a remake of the OG CSS Triggers, which was created by <a href="https://x.com/aerotwist">Paul Lewis</a> and <a href="https://x.com/DasSurma">Surma</a>. This version is created by Andrico Karoulla
 				</p>
 				<p>
-					But I need your help! The data I’m using hasn’t been updated in several years. If you have access to the latest browser data, then open a GitHub issue
+					The data hasn't updated in several years and so I need your help! If you have access to the latest browser data, then please create a <a href="https://github.com/andrico1234/css-triggers-11ty">GitHub issue</a>.
 				</p>
 			</div>
 			{% include 'key.njk' %}
@@ -23,35 +23,3 @@ layout: layouts/base.njk
 		</div>
 	</div>
 </div>
-
-<style>
-	.grid {
-		display: grid;
-		grid-template-columns: 1fr;
-		gap: 32px;
-	}
-
-	.children-content {
-		max-width: 70ch;
-		transform: translate(0px, 0px);
-		margin-inline: auto;
-	}
-
-	.main-content {
-		padding: 16px;
-	}
-
-	.sidebar {
-		display: none;
-	}
-
-	@media (min-width: 700px) {
-		.grid {
-			grid-template-columns: 250px 1fr;
-		}
-
-		.sidebar {
-			display: block;
-		}
-	}
-</style>

@@ -11,7 +11,7 @@ export function resizeTextToFit(wrapperEl, textEl) {
 		wrapperEl.style.fontSize = `${fontSize}px`;
 	}
 
-	wrapperEl.style.fontSize = `${fontSize - 2}px`;
+	wrapperEl.style.fontSize = `${fontSize - 3}px`;
 }
 
 export function resizeHandler() {
