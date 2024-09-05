@@ -3,13 +3,13 @@
 	<h2 class="content-title">{{ property }}</h2>
 		<div class="content-grid">
 			<div class="column">
-				<h3 class="subtitle">Initial render</h3>
+				<div class="subtitle">Initial render</div>
 				<div class="row">
 					{% for i in range(3) %}
 						<div class="button-wrapper column">
 							{% set engine = i | getEngine %}
-							<p class="engine">{{engine | truncate(1, true, '') | capitalize}}</p>
-							<button aria-label="{{ property }} in {{ engine }} triggers {{ step }}. Click for more details." data-engine-name={{ engine }} data-property-name={{ property }} class="content-list">
+							<p aria-label="{{engine}}" class="engine">{{engine | truncate(1, true, '') | capitalize}}</p>
+							<button aria-controls="expander-{{property}}" aria-pressed="false" aria-label="Toggle to display details for {{ property}} in {{ engine }}." data-engine-name={{ engine }} data-property-name={{ property }} class="content-list">
 								{% set engineValues = value.initial[engine] %}
 								<div data-step="layout" class="square layout is-valid-{{engineValues.layout}}"></div>
 								<div data-step="paint" class="square paint is-valid-{{engineValues.paint}}"></div>
@@ -21,13 +21,13 @@
 			</div>
 
 			<div class="column">
-				<h3 class="subtitle">Subsequent updates</h3>
+				<div class="subtitle">Subsequent updates</div>
 				<div class="row">
 					{% for i in range(3) %}
 						<div class="column button-wrapper">
 							{% set engine = i | getEngine %}
-							<p class="engine">{{engine | truncate(1, true, '') | capitalize}}</p>
-							<button aria-label="{{ property }} in {{ engine }} triggers {{ step }}. Click for more details." data-engine-name={{ engine }} data-property-name={{ property }} class="content-list">
+							<p aria-label="{{engine}}" class="engine">{{engine | truncate(1, true, '') | capitalize}}</p>
+							<button aria-controls="expander-{{property}}" aria-pressed="false" aria-label="Toggle to display details for {{ property}} in {{ engine }}." data-engine-name={{ engine }} data-property-name={{ property }} class="content-list">
 								{% set engineValues = value.change[engine] %}
 								<div data-step="layout" class="square layout is-valid-{{engineValues.layout}}"></div>
 								<div data-step="paint" class="square paint is-valid-{{engineValues.paint}}"></div>
@@ -56,8 +56,13 @@
 			if (!button) return;
 
 			const prevSelected = button.classList.contains('selected');
-			buttons.forEach((b) => b.classList.remove('selected'));
+			buttons.forEach((b) => {
+				b.setAttribute('aria-pressed', 'false');
+				b.classList.remove('selected')
+			});
+
 			button.classList.toggle('selected', !prevSelected);
+			button.setAttribute('aria-pressed', `${!prevSelected}`);
 
 			const property = button.dataset.propertyName;
 			const children = Array.from(button.children);

@@ -59,7 +59,10 @@ body {
 	font-family: var(--font-family);
 	color: var(--text-color);
 	background-color: var(--black);
-	transition: background-color 0.2s;
+}
+
+body {
+	transition: background-color 0.4s;
 }
 
 html {
@@ -356,7 +359,7 @@ h2+.header-anchor {
 	position: absolute;
 	inset: 0;
 	opacity: 1;
-	top: 8px;
+	transform: translateY(16px);
 	z-index: 1;
 	height: min-content;
 }
@@ -403,6 +406,8 @@ section {
 
 .subtitle {
 	margin-bottom: 0.6rem;
+	font-family: var(--font-family-display);
+	font-size: 1.2rem;
 	font-weight: 500;
 }
 
@@ -634,6 +639,20 @@ p.key-engine {
 	animation: content-exit 1s forwards var(--bezier);
 }
 
+@media (prefers-reduced-motion: reduce) {
+	.reveal-wrapper {
+		animation: fade-in 0.5s forwards;
+	}
+
+	.reveal-wrapper-background {
+		animation: fade-in 0.5s forwards;
+	}
+
+	.content-exit-animation {
+		animation: fade-out 0.5s forwards;
+	}
+}
+
 @keyframes content-reveal {
 	0% {
 		transform: translateY(100%);
@@ -649,5 +668,23 @@ p.key-engine {
 	}
 	100% {
 		transform: translateY(-100%);
+	}
+}
+
+@keyframes fade-in {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+
+@keyframes fade-out {
+	0% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0;
 	}
 }
