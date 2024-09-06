@@ -1,7 +1,7 @@
 const formId = '7059610';
 const apiKey = 'iasbqWWZXnqtfV06aOoFWA';
 
-exports.handler = async function (req) {
+export async function handler (req) {
 	const email = JSON.parse(req.body).email;
 	const url = `https://api.convertkit.com/v3/forms/${formId}/subscribe`;
 
