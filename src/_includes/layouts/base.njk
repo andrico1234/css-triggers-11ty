@@ -46,8 +46,37 @@
 			<p>If you have up-to-date data for this property, then please open an issue in GitHub</p>
 		</template>
 
+		<template id="form-template">
+			<div class="email-wrapper">
+					<p>If you learnt something from CSS Triggers, you might be interested in my newsletter where I share heaps of handy web development tips.</p>
+					<form aria-labelledby="subscribe-button" class="email-input">
+						<label for="email">Email:</label>
+						<div class="row">
+							<input id="email" type="email" name="email_address" required placeholder="css@triggers.com" />
+							<button type="submit" id="subscribe-button">
+								Subscribe
+							</button>
+						</div>
+					</form>
+					<div aria-live="polite" class="helper-text"></div>
+			</div>
+		</template>
+
 		<main>
 			{{ content | safe }}
 		</main>
+
+		<script type="module">
+			const script = document.createElement('script');
+			script.src = 'https://getinsights.io/js/insights.js';
+			document.head.appendChild(script);
+
+			script.onload = () => {
+				insights.init('qkVhx9BfS9OLOega');
+				insights.trackPages({ search: true });
+			};
+		</script>
+
+		<script type="module" src="js/setupForm.js"></script>
 	</body>
 </html>
