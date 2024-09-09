@@ -87,6 +87,10 @@ h3 {
 	font-family: var(--font-family-display);
 }
 
+h1 {
+	font-size: inherit;
+}
+
 h2 {
 	letter-spacing: 2px;
 }
@@ -433,7 +437,7 @@ p.key-engine {
 	font-weight: bold;
 	justify-content: center;
 	align-items: center;
-	font-size: 1.5em;
+	font-size: 1.2em;
 	color: var(--color-gray-20);
 	transition: transform 0.4s;
 	transform: scale(1);
@@ -461,7 +465,7 @@ p.key-engine {
 
 @media (min-width: 700px) {
 	.inverted-border-container {
-		width: min(100%, 300px);
+		width: min(100%, 250px);
 	}
 }
 
