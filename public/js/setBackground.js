@@ -1,10 +1,10 @@
 import { resizeTextToFit } from "./resizeTextToFit.js";
 
 const stepToColorsMap = {
-	none: "#0e1111",
-	layout: "#cc000d",
-	paint: "#5900cc",
-	composite: "#242bff",
+	none: "var(--black)",
+	layout: "var(--red)",
+	paint: "var(--purple)",
+	composite: "var(--blue)",
 };
 
 export function cycleBackground(step) {

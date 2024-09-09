@@ -26,13 +26,11 @@
 	--color-gray-50: #C0C0C0;
 	--color-gray-90: #dad8d8;
 
-	/* --black: black; */
-	/* --black: black; */
 	--white: var(--color-gray-20);
 	--black: #0e1111;
-	--red: #cc000d;
+	--red: #ba2630;
 	--purple: #5900cc;
-	--blue: #242bff;
+	--blue: #1419cc;
 
 	--background-color: var(--black);
 
@@ -276,12 +274,6 @@ section {
 	font-weight: 500;
 }
 
-.content-list .square {
-	width: 24px;
-	aspect-ratio: 1/1;
-	background: var(--square-bg, var(--black));
-}
-
 .content-list {
 	cursor: pointer;
 	background-color: transparent;
@@ -292,6 +284,7 @@ section {
 	font: inherit;
 	border-radius: 0;
 	position: relative;
+	background: var(--black);
 }
 
 .content-list::after {
@@ -313,6 +306,14 @@ section {
 }
 
 .content-list.selected::after {
+	opacity: 1;
+}
+
+.content-list .square > p {
+	opacity: 0.7;
+}
+
+.content-list:hover .square > p, .content-list:focus .square > p {
 	opacity: 1;
 }
 
@@ -361,11 +362,20 @@ section {
 	padding-block: 64px;
 }
 
-.key-grid-square {
+.square {
 	width: 32px;
 	aspect-ratio: 1/1;
-	border: 2px solid white;
 	background: var(--square-bg);
+	font-weight: 600;
+	line-height: 1rem;
+	font-size: 1.2rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.key-item > .square {
+	border: 2px solid white;
 }
 
 .key-item {

@@ -11,9 +11,21 @@
 							<p aria-label="{{engine}}" class="engine">{{engine | truncate(1, true, '') | capitalize}}</p>
 							<button aria-controls="expander-{{property}}" aria-pressed="false" aria-label="Toggle to display details for {{ property}} in {{ engine }}." data-engine-name={{ engine }} data-property-name={{ property }} class="content-list">
 								{% set engineValues = value.initial[engine] %}
-								<div data-step="layout" class="square layout is-valid-{{engineValues.layout}}"></div>
-								<div data-step="paint" class="square paint is-valid-{{engineValues.paint}}"></div>
-								<div data-step="composite" class="square composite is-valid-{{engineValues.composite}}"></div>
+								<div data-step="layout" class="square layout is-valid-{{engineValues.layout}}">
+									{% if engineValues.layout %}
+										<p>L</p>
+									{% endif %}
+								</div>
+								<div data-step="paint" class="square paint is-valid-{{engineValues.paint}}">
+									{% if engineValues.paint %}
+										<p>P</p>
+									{% endif %}
+								</div>
+								<div data-step="composite" class="square composite is-valid-{{engineValues.composite}}">
+									{% if engineValues.composite %}
+										<p>C</p>
+									{% endif %}
+								</div>
 							</button>
 						</div>
 					{% endfor %}
@@ -29,9 +41,21 @@
 							<p aria-label="{{engine}}" class="engine">{{engine | truncate(1, true, '') | capitalize}}</p>
 							<button aria-controls="expander-{{property}}" aria-pressed="false" aria-label="Toggle to display details for {{ property}} in {{ engine }}." data-engine-name={{ engine }} data-property-name={{ property }} class="content-list">
 								{% set engineValues = value.change[engine] %}
-								<div data-step="layout" class="square layout is-valid-{{engineValues.layout}}"></div>
-								<div data-step="paint" class="square paint is-valid-{{engineValues.paint}}"></div>
-								<div data-step="composite" class="square composite is-valid-{{engineValues.composite}}"></div>
+								<div data-step="layout" class="square layout is-valid-{{engineValues.layout}}">
+									{% if engineValues.layout %}
+										<p>L</p>
+									{% endif %}
+								</div>
+								<div data-step="paint" class="square paint is-valid-{{engineValues.paint}}">
+									{% if engineValues.paint %}
+										<p>P</p>
+									{% endif %}
+								</div>
+								<div data-step="composite" class="square composite is-valid-{{engineValues.composite}}">
+									{% if engineValues.composite %}
+										<p>C</p>
+									{% endif %}
+								</div>
 							</button>
 						</div>
 					{% endfor %}
