@@ -1,5 +1,3 @@
-import { resizeTextToFit } from "./resizeTextToFit.js";
-
 const stepToColorsMap = {
 	none: "var(--black)",
 	layout: "var(--red)",
@@ -9,13 +7,14 @@ const stepToColorsMap = {
 
 export function cycleBackground(step) {
 	const color = stepToColorsMap[step] ?? stepToColorsMap.none;
+	const mobileBg = document.querySelector(".mobile-bg");
 
 	document.body.style.setProperty("--background-color", color);
 
 	if (window.innerWidth < 700) {
-		document.body.style.backgroundColor = 'var(--background-color)';
+		mobileBg.style.backgroundColor = 'var(--background-color)';
 	} else {
-		document.body.style.backgroundColor = 'var(--black)';
+		mobileBg.style.backgroundColor = 'transparent';
 	}
 }
 

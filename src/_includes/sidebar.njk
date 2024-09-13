@@ -3,14 +3,12 @@
 	<div class="reveal-wrapper-background"></div>
 		<div class="reveal-wrapper">
 			<div class="text">
-				<p></p>
-				<p></p>
-				<p></p>
-				<p></p>
-				<p></p>
-				<p></p>
-				<p></p>
-				<p></p>
+				{% for i in range(8) %}
+					<span class="text-fit">
+						<span><span class="text-fit-content"></span></span>
+						<span class="text-fit-content" aria-hidden="true"></span>
+					</span>
+				{% endfor %}
 			</div>
 		</div>
 	</div>

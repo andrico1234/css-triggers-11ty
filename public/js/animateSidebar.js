@@ -1,4 +1,3 @@
-import { resizeHandler, resizeTextToFit } from "./resizeTextToFit.js";
 import { cycleBackground } from "./setBackground.js";
 
 const time = 1_000;
@@ -36,7 +35,7 @@ export function addTitle({ propertyName, step }, onComplete) {
 
 	if (container.children.length > 0) {
 		const currentText =
-			container.children[0].querySelector(".text p").textContent;
+			container.children[0].querySelector(".text .text-fit-content").textContent;
 		if (currentText === propertyName) {
 			cycleBackground(step)
 			onComplete();
@@ -46,7 +45,7 @@ export function addTitle({ propertyName, step }, onComplete) {
 
 	const templateClone = template.content.cloneNode(true);
 
-	const pEls = templateClone.querySelectorAll("p");
+	const pEls = templateClone.querySelectorAll(".text-fit-content");
 
 	for (const pEl of pEls) {
 		pEl.textContent = propertyName;
@@ -68,8 +67,6 @@ export function addTitle({ propertyName, step }, onComplete) {
 			previousTemplate.remove();
 		}, time);
 	}
-
-	resizeHandler();
 
 	setTimeout(() => {
 		onComplete();
