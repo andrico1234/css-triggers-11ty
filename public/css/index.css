@@ -309,11 +309,12 @@ section {
 	opacity: 1;
 }
 
-.content-list .square > p {
+.content-list .square>p {
 	opacity: 0.7;
 }
 
-.content-list:hover .square > p, .content-list:focus .square > p {
+.content-list:hover .square>p,
+.content-list:focus .square>p {
 	opacity: 1;
 }
 
@@ -374,7 +375,7 @@ section {
 	align-items: center;
 }
 
-.key-item > .square {
+.key-item>.square {
 	border: 2px solid white;
 }
 
@@ -439,22 +440,22 @@ p.key-engine {
 .inverted-border-title {
 	position: absolute;
 	font-family: var(--font-family-display);
-	left: 0;
+	left: 50%;
 	top: 0;
-	width: 100%;
 	height: 100%;
 	display: flex;
 	font-weight: bold;
 	justify-content: center;
 	align-items: center;
+	transform-origin: 0%;
 	font-size: 1.2em;
 	color: var(--color-gray-20);
 	transition: transform 0.4s;
-	transform: scale(1);
+	transform: scale(1) translate(-50%);
 }
 
 .inverted-border-wrapper:has(.inverted-border-title.two:hover) .inverted-border-title.one {
-	transform: scale(0.92);
+	transform: scale(0.92) translateX(-50%);
 }
 
 .inverted-border-title.one {
@@ -462,11 +463,11 @@ p.key-engine {
 }
 
 .inverted-border-title.two {
-	transform: scale(1.02);
+	transform: scale(1.02) translateX(-50%);
 }
 
 .inverted-border-title.two:hover {
-	transform: scale(1.1);
+	transform: scale(1.1) translateX(-50%);
 }
 
 .inverted-border-title {
@@ -635,71 +636,64 @@ label {
 /* TEXT FIT */
 
 @property --captured-length {
-  syntax: "<length>";
-  initial-value: 0px;
-  inherits: true;
+	syntax: "<length>";
+	initial-value: 0px;
+	inherits: true;
 }
 
 @property --captured-length2 {
-  syntax: "<length>";
-  initial-value: 0px;
-  inherits: true;
+	syntax: "<length>";
+	initial-value: 0px;
+	inherits: true;
 }
 
 
 .text-fit {
-  display: flex;
-  container-type: inline-size;
+	display: flex;
+	container-type: inline-size;
 
-  --captured-length: initial;
-  --support-sentinel: var(--captured-length, 9999px);
+	--captured-length: initial;
+	--support-sentinel: var(--captured-length, 9999px);
 	--max-font-size: 110px;
 
-  & > [aria-hidden] {
-    visibility: hidden;
-  }
+	&>[aria-hidden] {
+		visibility: hidden;
+	}
 
-  & > :not([aria-hidden]) {
-    flex-grow: 1;
-    container-type: inline-size;
+	&> :not([aria-hidden]) {
+		flex-grow: 1;
+		container-type: inline-size;
 
-    --captured-length: 100cqi;
-    --available-space: var(--captured-length);
+		--captured-length: 100cqi;
+		--available-space: var(--captured-length);
 
-    & > * {
-      --support-sentinel: inherit;
-      --captured-length: 100cqi;
+		&>* {
+			--support-sentinel: inherit;
+			--captured-length: 100cqi;
 
-      --ratio: tan(atan2(
-        var(--available-space),
-        var(--available-space) - var(--captured-length)
-      ));
+			--ratio: tan(atan2(var(--available-space),
+						var(--available-space) - var(--captured-length)));
 
-      --font-size: clamp(
-        1em,
-        1em * var(--ratio),
-        var(--max-font-size, infinity * 1px)
-        -
-        var(--support-sentinel)
-      );
-      inline-size: var(--available-space);
+			--font-size: clamp(1em,
+					1em * var(--ratio),
+					var(--max-font-size, infinity * 1px) - var(--support-sentinel));
+			inline-size: var(--available-space);
 
-      &:not(.text-fit) {
-        display: block;
-        font-size: var(--font-size);
+			&:not(.text-fit) {
+				display: block;
+				font-size: var(--font-size);
 
-        @container (inline-size > 0) {
-          white-space: nowrap;
-        }
-      }
+				@container (inline-size > 0) {
+					white-space: nowrap;
+				}
+			}
 
-      &.text-fit {
-        --captured-length2: var(--font-size);
-        font-variation-settings:
-          'opsz'
-          tan(atan2(var(--captured-length2), 1px));
-      }
-    }
-  }
+			&.text-fit {
+				--captured-length2: var(--font-size);
+				font-variation-settings:
+					'opsz'
+					tan(atan2(var(--captured-length2), 1px));
+			}
+		}
+	}
 }
-
